@@ -57,23 +57,29 @@ print("response json", response_5t.json())
 
 print("Das Wetter in " + location_name + " ist: vom " + start_date + " bis " + end_date)
 
-# Warum gibt es bis 22.7. aus?
+# Warum gibt es bis 22.7. aus? -> Fehler liegt bei Seite
 
 # Aufgabe 1.3
 
-# response = requests.get(forecast_url, forecast_params)
+historical_url = "https://archive-api.open-meteo.com/v1/archive"
 
-# historical weather data
+historical_params = {
+    "latitude": latitude,
+    "longitude": longitude,
+    "start_date": "2019-03-08",
+    "end_date": "2019-03-08",
+    "hourly": "temperature_2m",
+}
 
-# historical_url = "https://archive-api.open-meteo.com/v1/archive?latitude=52.52&longitude=13.41&start_date=2026-06-29&end_date=2026-07-13&hourly=temperature_2m"
+response_190308 = requests.get(historical_url, historical_params)
 
-# historical_params = {
-#  "latitude": latitude,
-# "longitude": longitude,
-# "start_date": "2019-03-08",
-# "end_date": "2019-03-08",
-# "daily"
+data_190308 = response_190308.json()
 
-# }
+print("reponse code", response_190308.status_code)
 
-# historical_data = historical
+print(
+    "Das Wetter in "
+    + location_name
+    + " am 08. März 2019: "
+    + str(data_190308["hourly"]["temperature_2m"])
+)
