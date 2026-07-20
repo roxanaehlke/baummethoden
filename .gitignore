@@ -4,6 +4,5 @@
 *.egg-info
 .vscode/*.log
 
-data/models/*
 
 __pycache__
