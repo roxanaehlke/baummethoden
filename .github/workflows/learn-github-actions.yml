@@ -1,4 +1,4 @@
-name: Run Tests (Windows)
+name: Run Tests (Windows) #immer run-on: ubuntu-latest angeben, weil es normalerweise nur auf Linux funktioniert
 
 on: [push]
 
