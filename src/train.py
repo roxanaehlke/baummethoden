@@ -7,31 +7,28 @@ import pickle
 # read csv-file
 data = pd.read_csv("data/mpg-data.csv", sep=";")
 
-print(data.columns.tolist())  # Spaltennamen prüfen
-print(data.head())  # erste Zeilen prüfen
+# print(data)
 
-# Fehlende Werte entfernen
-data = data.dropna()
+# shuffle data
+data = data.sample(frac=1)
 
-# Features und Zielvariable
-x = data[["zylinder", "ps", "gewicht", "beschleunigung", "baujahr"]]
-y = data["mpg"]
+# 'class'-column
+y_variable = data["mpg"]
 
-# Trainings- und Testdaten aufteilen
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=1)
+# all columns that contain attributes
+x_variable = data.loc[:, data.columns != "mpg"]
 
-# Modell trainieren
-model = LinearRegression()
-model.fit(x_train, y_train)
+x_train, x_test, y_train, y_test = train_test_split(
+    x_variable, y_variable, test_size=0.2
+)
 
-print("Modell trainiert, Score:", model.score(x_test, y_test))
+regressor = LinearRegression()
 
-# Speicherordner erstellen falls nicht vorhanden
-os.makedirs("data/models", exist_ok=True)
+regressor = regressor.fit(x_train, y_train)
 
-# Modell speichern
-model_path = "data/models/model.pkl"
-with open(model_path, "wb") as f:
-    pickle.dump(model, f)
+y_pred = regressor.predict(x_test)
 
-print("Modell gespeichert unter:", model_path)
+print(y_pred)
+
+file_to_write = open("data/models/baummethoden_lr.pickle", "wb")
+pickle.dump(regressor, file_to_write)
