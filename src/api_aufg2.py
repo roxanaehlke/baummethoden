@@ -37,4 +37,8 @@ def training_data():
 
 # gibt Trainingsdaten als json-array zurück
 
+# Fragen
 # Ordner-Struktur selbst erstellen?
+# nach "git push" kommt "git push --set-upstream origin DIG-831" müsste "upstram origin nicht main sein?"
+#  * [new branch]      DIG-831 -> DIG-831
+# branch 'DIG-831' set up to track 'origin/DIG-831'
